@@ -56,25 +56,69 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
 #### [[⬆]](#toc) <a name='simple'>Simple Linux Questions:</a>
 
 * What is the name and the UID of the administrator user?
+  - Root, 0. Technically username isn't important, just the 0 UID
 * How to list all files, including hidden ones, in a directory?
+  - ls -a
 * What is the Unix/Linux command to remove a directory and its contents?
-* Which command will show you free/used memory? Does free memory exist on Linux?
+  - rm -r (f to force) 
+* Which command will show you free/used memory? 
+  - free -m
+  - /proc/meminfo
+  - top / htop if you're looking at per-process memory usage
+
+  * Does free memory exist on Linux?
+    - yes?
 * How to search for the string "my konfu is the best" in files of a directory recursively?
+    - grep -r 'my konfu is the best' . 
 * How to connect to a remote server or what is SSH?
+    - ssh {user}@{host}
 * How to get all environment variables and how can you use them?
-* I get "command not found" when I run ```ifconfig -a```. What can be wrong?
+    - PRINTENV
+    - can use them in any application (basically all languages have some sort of way of grabbing them). Typically used to hold secrets and configurations at the server level. 
+* I get "command not found" when I run ifconfig -a. What can be wrong?
+    - ifconfig likely isnt in your PATH
+    - run locate ifconfig to see if you've got the wrong command name (it might be stored in /sbin/ifconfig)  
+    - Your distro may not have ifconfig installed (apt-get, yum, apt) to install
+    - export PATH=$PATH:/sbin/ifconfig
 * What happens if I type TAB-TAB?
+    - Shows all possible completions for your current command on ZSH 
 * What command will show the available disk space on the Unix/Linux system?
+    - df -h  
+    * What about where it's being used
+      - du -H
 * What commands do you know that can be used to check DNS records?
+    - whois {sitename}
+    - nslookup {sitename}
+    - (use IP instead for a reverse dns lookup)
 * What Unix/Linux commands will alter a files ownership, files permissions?
-* What does ```chmod +x FILENAME``` do?
+  - Chown
+  - chmod
+* What does `chmod +x FILENAME` do?
+  - allows a file to be executed
 * What does the permission 0750 on a file mean?
+  - owner can read-write-execute
+  - group can read execute
+  - otherwise nothing
 * What does the permission 0750 on a directory mean?
+  - same as above but governs what a user can do in a directory, files do not inherit these permissions
 * How to add a new system user without login permissions?
+  - useradd -r/--system {uname}
+  - system flag
 * How to add/remove a group from a user?
+  - adduser {name} {group}
+
+* How to add a user and assign to a group at the same time
+  - useradd -G {group} {name}
+
 * What is a bash alias?
+  - allows you to rename commands. 
+* How do you do multiple commands in a bash alias
+  - alias multi={command1} && {command2} // this short circuits if 1 fails
+  - alias multi={command1}; {command2} // this runs both no matter what
 * How do you set the mail address of the root/a user?
+
 * What does CTRL-c do?
+  - SIGINT //stops the script
 * What does CTRL-d do?
 * What does CTRL-z do?
 * What is in /etc/services?
